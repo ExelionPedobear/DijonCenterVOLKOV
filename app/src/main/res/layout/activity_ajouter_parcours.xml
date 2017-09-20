@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent">
+
+    <Spinner
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/spCinemas"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/spRestaurants"
+        android:layout_centerHorizontal="true" />
+
+    <DatePicker
+        android:id="@+id/tpDateRealisationPrevue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="15"
+        android:inputType="textPersonName"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false"
+        />
+
+    <EditText
+        android:id="@+id/editAccompagnant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="15"
+        android:inputType="textPersonName" />
+
+    <Spinner
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/spStatuts"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btnValider"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Valider" />
+
+</LinearLayout>

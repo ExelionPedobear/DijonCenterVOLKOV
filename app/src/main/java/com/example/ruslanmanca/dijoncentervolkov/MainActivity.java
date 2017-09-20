@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.ruslanmanca.dijoncentervolkov.adapters.PoiAdapter;
@@ -16,7 +17,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     ListView pois;
-
+    ImageButton imgParcours;
+    ImageButton imgAjouterParcours;
     private static PoiListViewAdapter poiLvAdapter;
 
     @Override
@@ -25,6 +27,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         pois = (ListView)findViewById(R.id.pois);
+        imgParcours = (ImageButton)findViewById(R.id.imgParcours);
+
+        imgParcours.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ParcoursActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imgAjouterParcours = (ImageButton)findViewById(R.id.imgAjouterParcours);
+
+        imgAjouterParcours.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AjouterParcoursActivity.class);
+                startActivity(intent);
+            }
+        });
 
         PoiAdapter poiAdapter = new PoiAdapter("https://my-json-server.typicode.com/lpotherat/pois/db");
         final ArrayList<Poi> lstPois = poiAdapter.GetAll();

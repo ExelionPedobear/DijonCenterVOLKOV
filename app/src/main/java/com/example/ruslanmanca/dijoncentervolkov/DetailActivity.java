@@ -3,6 +3,7 @@ package com.example.ruslanmanca.dijoncentervolkov;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 

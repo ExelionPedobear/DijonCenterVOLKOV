@@ -18,6 +18,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/AjouterParcoursActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/DetailActivity.java">
           <value>
             <set />
@@ -28,12 +33,72 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/ParcoursActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/adapters/DatabaseAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/adapters/PoiAdapter.java">
           <value>
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/adapters/database/DatabaseAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/adapters/database/ParcoursAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/adapters/database/StatutAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/listadapters/ParcoursListViewAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/listadapters/PoiListViewAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/listadapters/PoiSpinnerAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/listadapters/SpinnerAdapterPoi.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/listadapters/SpinnerAdapterStatut.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/listadapters/StatutSpinnerAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/models/EnumStatut.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/models/EnumTypePoi.java">
           <value>
             <set />
           </value>
@@ -53,7 +118,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/models/database/Parcours.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/models/database/Statut.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/services/PoisGetTask.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_ajouter_parcours.xml">
           <value>
             <set />
           </value>
@@ -68,7 +148,42 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_parcours.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/parcours_listview_item.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/poi_listview_item.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/spinner_row.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SmartBookmarksVOLKOV/app/src/main/java/com/example/ruslanmanca/smartbookmarksvolkov/Adapters/CommentsAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SmartBookmarksVOLKOV/app/src/main/java/com/example/ruslanmanca/smartbookmarksvolkov/Adapters/DatabaseAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../Projets/Android/SortonsADijon/app/src/main/java/com/example/rusla/sortonsadijon/Models/EnumTypeLieu.java">
           <value>
             <set />
           </value>

@@ -32,7 +32,7 @@ public class PoiListViewAdapter extends ArrayAdapter<Poi> implements View.OnClic
     public PoiListViewAdapter(ArrayList<Poi> data, Context context) {
         super(context, R.layout.poi_listview_item, data);
         this.dataSet = data;
-        this.mContext=context;
+        this.mContext = context;
     }
 
     @Override

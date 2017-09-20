@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:weightSum="5">
+
+    <TextView
+        android:id="@+id/cinema"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/restaurant"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/dateRealisation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/accompagnant"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/statut"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textAlignment="center"/>
+
+</LinearLayout>

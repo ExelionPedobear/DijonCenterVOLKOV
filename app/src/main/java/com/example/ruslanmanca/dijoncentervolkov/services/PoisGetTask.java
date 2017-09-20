@@ -54,6 +54,7 @@ public class PoisGetTask extends AsyncTask<String, Void, String> {
 
         return result;
     }
+
     protected void onPostExecute(String result){
         super.onPostExecute(result);
     }
