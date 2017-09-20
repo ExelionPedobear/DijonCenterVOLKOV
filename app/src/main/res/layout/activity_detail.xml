@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="368dp"
+android:layout_height="wrap_content"
+android:orientation="vertical"
+android:padding="10dp"
+tools:layout_editor_absoluteY="0dp"
+tools:layout_editor_absoluteX="8dp"
+tools:context="com.example.ruslanmanca.dijoncentervolkov.DetailActivity">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="2">
+        <TextView
+            android:id="@+id/txtType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="16dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="16dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="3">
+        <TextView
+            android:id="@+id/txtAdress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="16dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/txtPostalCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="16dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/txtCity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="16dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="2">
+        <TextView
+            android:id="@+id/txtLat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="16dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/txtLon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="16dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>
