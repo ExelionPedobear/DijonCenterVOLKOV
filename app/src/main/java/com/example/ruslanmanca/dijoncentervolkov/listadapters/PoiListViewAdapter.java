@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ruslanmanca.dijoncentervolkov.R;
@@ -25,6 +26,7 @@ public class PoiListViewAdapter extends ArrayAdapter<Poi> implements View.OnClic
         TextView txtType;
         TextView txtName;
         TextView txtAdress;
+        ImageView imgIcon;
     }
 
     public PoiListViewAdapter(ArrayList<Poi> data, Context context) {
@@ -60,6 +62,7 @@ public class PoiListViewAdapter extends ArrayAdapter<Poi> implements View.OnClic
             viewHolder.txtType = (TextView) convertView.findViewById(R.id.type);
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.name);
             viewHolder.txtAdress = (TextView) convertView.findViewById(R.id.adress);
+            viewHolder.imgIcon = (ImageView) convertView.findViewById(R.id.imgIcon);
 
             result=convertView;
 
@@ -74,6 +77,12 @@ public class PoiListViewAdapter extends ArrayAdapter<Poi> implements View.OnClic
         viewHolder.txtType.setText(dataModel.getType());
         viewHolder.txtName.setText(dataModel.getName());
         viewHolder.txtAdress.setText(dataModel.getLocation().getAdress());
+        if (dataModel.getType().equals("CINE")){
+            viewHolder.imgIcon.setImageResource(R.mipmap.cine_icon);
+        }
+        if (dataModel.getType().equals("REST")){
+            viewHolder.imgIcon.setImageResource(R.mipmap.resto_icon);
+        }
         //viewHolder.info.setOnClickListener(this);
         // Return the completed view to render on screen
         return convertView;

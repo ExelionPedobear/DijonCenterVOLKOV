@@ -1,7 +1,9 @@
 package com.example.ruslanmanca.dijoncentervolkov;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ruslanmanca.dijoncentervolkov.models.Poi;
@@ -15,6 +17,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView txtCity;
     TextView txtLat;
     TextView txtLon;
+    LinearLayout llBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,11 @@ public class DetailActivity extends AppCompatActivity {
         txtLat = (TextView)findViewById(R.id.txtLat);
         txtLon = (TextView)findViewById(R.id.txtLon);
 
+        llBackground = (LinearLayout) findViewById(R.id.llBackground);
+
+
+
+
         Poi poi = (Poi)getIntent().getSerializableExtra("Poi");
 
         txtType.setText(poi.getType());
@@ -37,5 +45,12 @@ public class DetailActivity extends AppCompatActivity {
         txtCity.setText(poi.getLocation().getCity());
         txtLat.setText(String.valueOf(poi.getLocation().getPosition().getLat()));
         txtLon.setText(String.valueOf(poi.getLocation().getPosition().getLon()));
+
+        if (poi.getType().equals("CINE")){
+            llBackground.setBackgroundColor(Color.parseColor("#fd8469"));
+        }
+        if (poi.getType().equals("REST")){
+            llBackground.setBackgroundColor(Color.parseColor("#52bed8"));
+        }
     }
 }
