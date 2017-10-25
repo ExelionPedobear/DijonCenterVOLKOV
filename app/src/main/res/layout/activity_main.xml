@@ -8,6 +8,10 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+        <TextView android:id="@+id/nbPois"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
         <ListView
             android:id="@+id/pois"
             android:layout_width="match_parent"
@@ -34,6 +38,13 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:src="@mipmap/parcours_icon"/>
+
+            <ImageButton
+                android:id="@+id/imgAfficherCarte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@mipmap/map"/>
         </LinearLayout>
     </RelativeLayout>
 

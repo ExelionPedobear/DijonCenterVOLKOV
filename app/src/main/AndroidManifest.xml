@@ -4,6 +4,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +17,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver android:name=".listeners.BatteryReceiver">
+        <intent-filter android:priority="1000">
+            <action android:name="android.intent.action.BATTERY_LOW" />
+        </intent-filter>
+        </receiver>
+        <receiver android:name=".listeners.SmsListener">
+            <intent-filter android:priority="900">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +36,18 @@
         </activity>
         <activity android:name=".DetailActivity" />
         <activity android:name=".AjouterParcoursActivity" />
-        <activity android:name=".ParcoursActivity"></activity>
+        <activity android:name=".ParcoursActivity" />
+
+        <uses-feature
+            android:glEsVersion="0x00020000"
+            android:required="true" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBsHn0_LC4EbyJQfXGqEFIq_eTs6ZqjpAE" />
+
+        <activity android:name=".CarteActivity"></activity>
+
     </application>
 
 </manifest>

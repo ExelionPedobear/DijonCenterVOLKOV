@@ -8,8 +8,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ruslanmanca.dijoncentervolkov.models.Poi;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     TextView txtType;
     TextView txtName;
@@ -19,6 +28,8 @@ public class DetailActivity extends AppCompatActivity {
     TextView txtLat;
     TextView txtLon;
     LinearLayout llBackground;
+    GoogleMap mMap;
+    Poi poi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +46,7 @@ public class DetailActivity extends AppCompatActivity {
         llBackground = (LinearLayout) findViewById(R.id.llBackground);
 
 
-
-
-        Poi poi = (Poi)getIntent().getSerializableExtra("Poi");
+        poi = (Poi)getIntent().getSerializableExtra("Poi");
 
         txtType.setText(poi.getType());
         txtName.setText(poi.getName());
@@ -53,5 +62,32 @@ public class DetailActivity extends AppCompatActivity {
         if (poi.getType().equals("REST")){
             llBackground.setBackgroundColor(Color.parseColor("#52bed8"));
         }
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        LatLng poiLatLng = new LatLng(poi.getLocation().getPosition().getLat(), poi.getLocation().getPosition().getLon());
+        int pin = 0;
+        if (poi.getType().equals("CINE")){
+            pin = R.mipmap.pin_cine;
+        }
+        else{
+            pin = R.mipmap.pin_resto;
+        }
+        mMap.addMarker(new MarkerOptions()
+                .position(poiLatLng)
+                .title(poi.getType() + " - " + poi.getName())
+                .icon(BitmapDescriptorFactory.fromResource(pin))
+        );
+
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(poiLatLng).zoom(14.0f).build();
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+        mMap.moveCamera(cameraUpdate);
     }
 }
