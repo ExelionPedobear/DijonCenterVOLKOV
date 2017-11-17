@@ -17,6 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <uses-permission android:name="com.example.ruslanmanca.myhealthvolkov.READ_DATABASE"/>
+        <uses-permission android:name="com.example.ruslanmanca.myhealthvolkov.WRITE_DATABASE"/>
         <receiver android:name=".listeners.BatteryReceiver">
         <intent-filter android:priority="1000">
             <action android:name="android.intent.action.BATTERY_LOW" />

@@ -1,7 +1,10 @@
 package com.example.ruslanmanca.dijoncentervolkov;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ruslanmanca.dijoncentervolkov.adapters.PoiAdapter;
+import com.example.ruslanmanca.dijoncentervolkov.dictionaries.PersonDictionary;
 import com.example.ruslanmanca.dijoncentervolkov.listadapters.PoiListViewAdapter;
 import com.example.ruslanmanca.dijoncentervolkov.models.Poi;
 
@@ -34,6 +38,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ContentResolver cr = getContentResolver();
+        String[] projection = {
+                PersonDictionary.KEY_COL_ID_PERSON,
+                PersonDictionary.KEY_COL_NOM_PERSON,
+                PersonDictionary.KEY_COL_PRENOM_PERSON,
+                PersonDictionary.KEY_COL_AGE_PERSON,
+                PersonDictionary.KEY_COL_POIDS_PERSON,
+                PersonDictionary.KEY_COL_DATE_MAJ_PERSON,
+                PersonDictionary.KEY_COL_LOGIN_PERSON
+        };
+
+        Cursor test = cr.query(Uri.parse("content://ruslanauthority/ruslandata"), null, null, null, null);
+        //cr.query(Uri.parse("content://com.android.contacts/contacts"), projection, null, null, null);
 
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.RECEIVE_SMS)
