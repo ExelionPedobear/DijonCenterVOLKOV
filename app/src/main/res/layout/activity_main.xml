@@ -12,10 +12,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/linearLayout">
+            <EditText
+                android:id="@+id/txtLogin"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Valider" />
+        </LinearLayout>
         <ListView
             android:id="@+id/pois"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout" />
 
         <LinearLayout
             android:layout_width="wrap_content"

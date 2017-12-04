@@ -68,6 +68,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/adapters/contentproviders/PersonProvider.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/adapters/database/DatabaseAdapter.java">
           <value>
             <set />
@@ -79,6 +84,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/adapters/database/StatutAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/dictionaries/HealthDictionary.java">
           <value>
             <set />
           </value>
@@ -158,12 +168,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/models/contentproviders/Person.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/models/database/Parcours.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/models/database/Statut.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/providers/PersonProvider.java">
           <value>
             <set />
           </value>

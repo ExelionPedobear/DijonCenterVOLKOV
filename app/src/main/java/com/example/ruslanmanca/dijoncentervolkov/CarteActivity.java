@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.example.ruslanmanca.dijoncentervolkov.adapters.PoiAdapter;
 import com.example.ruslanmanca.dijoncentervolkov.models.Poi;
+import com.example.ruslanmanca.dijoncentervolkov.models.contentproviders.Person;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 public class CarteActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     GoogleMap mMap;
+    Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +36,22 @@ public class CarteActivity extends AppCompatActivity implements OnMapReadyCallba
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        person = (Person)getIntent().getSerializableExtra("Person");
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         PoiAdapter poiAdapter = new PoiAdapter("https://my-json-server.typicode.com/lpotherat/pois/db");
-        final ArrayList<Poi> lstPois = poiAdapter.GetAll();
+        ArrayList<Poi> lstPois = new ArrayList<>();
+        if (person != null){
+            person.setCorpulence();
+            lstPois = poiAdapter.GetAll(person.getCorpulence());
+        }
+        else{
+            lstPois = poiAdapter.GetAll(null);
+        }
+
         LatLng poiLatLng = new LatLng(0,0);
         mMap = googleMap;
         for (Poi poi : lstPois) {

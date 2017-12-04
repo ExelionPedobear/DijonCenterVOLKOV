@@ -18,7 +18,6 @@ import java.util.ArrayList;
  */
 
 public class PoiListViewAdapter extends ArrayAdapter<Poi> implements View.OnClickListener{
-    private ArrayList<Poi> dataSet;
     Context mContext;
 
     // View lookup cache
@@ -31,7 +30,6 @@ public class PoiListViewAdapter extends ArrayAdapter<Poi> implements View.OnClic
 
     public PoiListViewAdapter(ArrayList<Poi> data, Context context) {
         super(context, R.layout.poi_listview_item, data);
-        this.dataSet = data;
         this.mContext = context;
     }
 
@@ -86,5 +84,10 @@ public class PoiListViewAdapter extends ArrayAdapter<Poi> implements View.OnClic
         //viewHolder.info.setOnClickListener(this);
         // Return the completed view to render on screen
         return convertView;
+    }
+
+    public void updateData(ArrayList<Poi> list){
+        this.clear();
+        this.addAll(list);
     }
 }

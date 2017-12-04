@@ -11,15 +11,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ruslanmanca.dijoncentervolkov.adapters.PoiAdapter;
+import com.example.ruslanmanca.dijoncentervolkov.adapters.contentproviders.PersonProvider;
+import com.example.ruslanmanca.dijoncentervolkov.dictionaries.HealthDictionary;
 import com.example.ruslanmanca.dijoncentervolkov.dictionaries.PersonDictionary;
 import com.example.ruslanmanca.dijoncentervolkov.listadapters.PoiListViewAdapter;
 import com.example.ruslanmanca.dijoncentervolkov.models.Poi;
+import com.example.ruslanmanca.dijoncentervolkov.models.contentproviders.Person;
 
 import java.util.ArrayList;
 
@@ -30,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     ImageButton imgParcours;
     ImageButton imgAjouterParcours;
     ImageButton imgAfficherCarte;
+    EditText txtLogin;
+    Button btnLogin;
+    Person person;
     private static PoiListViewAdapter poiLvAdapter;
 
     private final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 0;
@@ -39,19 +48,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ContentResolver cr = getContentResolver();
-        String[] projection = {
-                PersonDictionary.KEY_COL_ID_PERSON,
-                PersonDictionary.KEY_COL_NOM_PERSON,
-                PersonDictionary.KEY_COL_PRENOM_PERSON,
-                PersonDictionary.KEY_COL_AGE_PERSON,
-                PersonDictionary.KEY_COL_POIDS_PERSON,
-                PersonDictionary.KEY_COL_DATE_MAJ_PERSON,
-                PersonDictionary.KEY_COL_LOGIN_PERSON
-        };
-
-        Cursor test = cr.query(Uri.parse("content://ruslanauthority/ruslandata"), null, null, null, null);
-        //cr.query(Uri.parse("content://com.android.contacts/contacts"), projection, null, null, null);
+        txtLogin = (EditText) findViewById(R.id.txtLogin);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
 
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.RECEIVE_SMS)
@@ -97,12 +95,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CarteActivity.class);
+
+                intent.putExtra("Person", person);
+
                 startActivity(intent);
             }
         });
 
-        PoiAdapter poiAdapter = new PoiAdapter("https://my-json-server.typicode.com/lpotherat/pois/db");
-        final ArrayList<Poi> lstPois = poiAdapter.GetAll();
+        final PoiAdapter poiAdapter = new PoiAdapter("https://my-json-server.typicode.com/lpotherat/pois/db");
+        final ArrayList<Poi> lstPois = poiAdapter.GetAll(null);
         nbPois.setText(String.valueOf(lstPois.size()));
         poiLvAdapter = new PoiListViewAdapter(lstPois, getApplicationContext());
 
@@ -115,6 +116,29 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                 intent.putExtra("Poi", poi);
                 startActivity(intent);
+            }
+        });
+
+        //ContentResolver cr = getContentResolver();
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String login = txtLogin.getText().toString();
+                PersonProvider personProvider = new PersonProvider();
+                ContentResolver cr = getContentResolver();
+                Cursor cursor = cr.query(Uri.parse("content://ruslanauthority/ruslanlogin/" + login), null, null, null, null);
+                person = personProvider.getPerson(cursor);
+                Toast toast = Toast.makeText(getApplicationContext(), "Logged as : " + person.getLoginPerson(), Toast.LENGTH_LONG);
+                toast.show();
+
+                ArrayList<Poi> newPois = new ArrayList<Poi>(){};
+
+                person.setCorpulence();
+                newPois = poiAdapter.GetAll(person.getCorpulence());
+                nbPois.setText(String.valueOf(newPois.size()));
+                poiLvAdapter.updateData(newPois);
+                poiLvAdapter.notifyDataSetChanged();
             }
         });
     }

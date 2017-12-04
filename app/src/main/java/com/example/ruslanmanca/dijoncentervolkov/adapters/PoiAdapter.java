@@ -1,5 +1,6 @@
 package com.example.ruslanmanca.dijoncentervolkov.adapters;
 
+import com.example.ruslanmanca.dijoncentervolkov.dictionaries.HealthDictionary;
 import com.example.ruslanmanca.dijoncentervolkov.models.Location;
 import com.example.ruslanmanca.dijoncentervolkov.models.Poi;
 import com.example.ruslanmanca.dijoncentervolkov.models.Position;
@@ -59,7 +60,7 @@ public class PoiAdapter {
         return result;
     }
 
-    public ArrayList<Poi> GetAll(){
+    public ArrayList<Poi> GetAll(Integer corpulency){
         //String to place our result in
         ArrayList<Poi> result = new ArrayList<>();
         //Instantiate new instance of our class
@@ -73,7 +74,7 @@ public class PoiAdapter {
                 // Getting JSON Array node
                 JSONArray contacts = jsonObj.getJSONArray("pois");
 
-                result = BuildPoi(contacts, "");
+                result = BuildPoi(contacts, "", corpulency);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -100,7 +101,7 @@ public class PoiAdapter {
                 // Getting JSON Array node
                 JSONArray contacts = jsonObj.getJSONArray("pois");
 
-                result = BuildPoi(contacts, "CINE");
+                result = BuildPoi(contacts, "CINE", null);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -127,7 +128,7 @@ public class PoiAdapter {
                 // Getting JSON Array node
                 JSONArray contacts = jsonObj.getJSONArray("pois");
 
-                result = BuildPoi(contacts, "REST");
+                result = BuildPoi(contacts, "REST", null);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -140,7 +141,7 @@ public class PoiAdapter {
         return result;
     }
 
-    public ArrayList<Poi> BuildPoi(JSONArray contacts, String typePoi){
+    public ArrayList<Poi> BuildPoi(JSONArray contacts, String typePoi, Integer corpulency){
         try {
             ArrayList<Poi> result = new ArrayList<>();
             for (int i = 0; i < contacts.length(); i++) {
@@ -157,6 +158,33 @@ public class PoiAdapter {
                 String id = c.getString("id");
                 String name = c.getString("name");
                 String type = c.getString("type");
+
+                if (corpulency != null){
+                    if (corpulency == HealthDictionary.ANOREXIA) {
+                        if (type.equals("REST") && (!name.contains("Kebab") || !name.contains("Flunch") || !name.contains("Scala") || !name.contains("Subway") || !name.contains("Quick") || !name.contains("Wok"))){
+                            continue;
+                        }
+                    }
+                    else if (corpulency == HealthDictionary.SLIM) {
+
+                    }
+                    else if (corpulency == HealthDictionary.FIT) {
+                        if (type.equals("REST") && (name.contains("Kebab") || name.contains("Subway") || name.contains("Quick") || name.contains("Wok"))){
+                            continue;
+                        }
+                    }
+                    else if (corpulency == HealthDictionary.FAT) {
+                        if (type.equals("REST")){
+                            continue;
+                        }
+                    }
+                    else if (corpulency == HealthDictionary.OBESITY) {
+                        continue;
+                    }
+                    else {
+                        continue;
+                    }
+                }
 
                 JSONObject location = c.getJSONObject("location");
                 String adress = location.getString("adress");
