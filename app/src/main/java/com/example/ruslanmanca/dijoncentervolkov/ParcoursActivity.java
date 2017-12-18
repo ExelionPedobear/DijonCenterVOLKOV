@@ -16,11 +16,13 @@ import com.example.ruslanmanca.dijoncentervolkov.models.database.Parcours;
 import com.example.ruslanmanca.dijoncentervolkov.models.database.Statut;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 public class ParcoursActivity extends AppCompatActivity {
     ListView lvParcours;
     private static ParcoursListViewAdapter parcoursLvAdapter;
     ArrayList<Parcours> parcours;
+    Integer compteur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +34,60 @@ public class ParcoursActivity extends AppCompatActivity {
         SQLiteDatabase db = maCollecDb.getWritableDatabase();
         final ParcoursAdapter pa = new ParcoursAdapter(db);
         parcours = pa.getAll();
-        parcoursLvAdapter = new ParcoursListViewAdapter(parcours, getApplicationContext());
+        PoiAdapter poiAdapter = new PoiAdapter("https://my-json-server.typicode.com/lpotherat/pois/pois/" );
 
-        lvParcours.setAdapter(parcoursLvAdapter);
+        compteur = parcours.size() * 2;
+
+        for (final ListIterator<Parcours> p = parcours.listIterator(); p.hasNext();) {
+            final Parcours newParcours = p.next();
+            /*Poi cinema = */
+            poiAdapter.GetById(newParcours.getIdCinema(), new PoiAdapter.PoiAdapterListener() {
+                @Override
+                public boolean onPoiGetById(Poi poi) {
+                    newParcours.setPoiCinema(poi);
+                    p.set(newParcours);
+                    Decrementer();
+                    return true;
+                }
+
+                @Override
+                public boolean onPoiGetCinemasOuRestaurants(ArrayList<Poi> pois){
+                    return true;
+                }
+
+                @Override
+                public boolean onPoiGetAll(ArrayList<Poi> pois) {
+                    return true;
+                }
+            });
+
+            poiAdapter.GetById(newParcours.getIdRestaurant(), new PoiAdapter.PoiAdapterListener() {
+                @Override
+                public boolean onPoiGetById(Poi poi) {
+                    newParcours.setPoiRestaurant(poi);
+                    p.set(newParcours);
+                    Decrementer();
+                    return true;
+                }
+
+                @Override
+                public boolean onPoiGetCinemasOuRestaurants(ArrayList<Poi> pois){
+                    return true;
+                }
+
+                @Override
+                public boolean onPoiGetAll(ArrayList<Poi> pois) {
+                    return true;
+                }
+            });
+        }
+    }
+
+    public void Decrementer(){
+        compteur--;
+        if (compteur == 0){
+            parcoursLvAdapter = new ParcoursListViewAdapter(parcours, getApplicationContext());
+            lvParcours.setAdapter(parcoursLvAdapter);
+        }
     }
 }

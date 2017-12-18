@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -19,48 +20,79 @@ import java.util.concurrent.ExecutionException;
 
 public class PoiAdapter {
 
+    public interface PoiAdapterListener{
+        public boolean onPoiGetById(Poi poi);
+        public boolean onPoiGetCinemasOuRestaurants(ArrayList<Poi> pois);
+        public boolean onPoiGetAll(ArrayList<Poi> pois);
+    }
     private String apiUrl;
 
     public PoiAdapter(String apiUrl){
         this.apiUrl = apiUrl;
     }
 
-    public Poi GetById(String id){
-        //String to place our result in
-        Poi result = new Poi();
+    public void GetById(String id, final PoiAdapterListener listener){
         //Instantiate new instance of our class
         PoisGetTask getRequest = new PoisGetTask(){
+            @Override
+            protected void onPostExecute(String jsonStr) {
+                super.onPostExecute(jsonStr);
+                //Perform the doInBackground method, passing in our url
+                Poi result = new Poi();
+                try {
+                    if (jsonStr != null) {
+                        JSONObject poi = new JSONObject(jsonStr);
+                        result.setId(poi.getString("id"));
+                        result.setName(poi.getString("name"));
+                        result.setType(poi.getString("type"));
 
-        };
-        //Perform the doInBackground method, passing in our url
-        try {
-            String jsonStr = getRequest.execute(apiUrl + id).get();
-            if (jsonStr != null) {
-                JSONObject poi = new JSONObject(jsonStr);
-                result.setId(poi.getString("id"));
-                result.setName(poi.getString("name"));
-                result.setType(poi.getString("type"));
+                        JSONObject loc = poi.getJSONObject("location");
 
-                JSONObject loc = poi.getJSONObject("location");
+                        JSONObject pos = loc.getJSONObject("position");
+                        Position position = new Position(Double.parseDouble(pos.getString("lat")), Double.parseDouble(pos.getString("lon")));
+                        Location location = new Location(loc.getString("adress"), loc.getString("postalCode"), loc.getString("city"), position);
 
-                JSONObject pos = loc.getJSONObject("position");
-                Position position = new Position(Double.parseDouble(pos.getString("lat")), Double.parseDouble(pos.getString("lon")));
-                Location location = new Location(loc.getString("adress"), loc.getString("postalCode"), loc.getString("city"), position);
+                        result.setLocation(location);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                result.setLocation(location);
+                listener.onPoiGetById(result);
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        };
 
-        return result;
+        getRequest.execute(apiUrl + id);
     }
 
-    public ArrayList<Poi> GetAll(Integer corpulency){
+    public /*ArrayList<Poi>*/ void GetAll(final Integer corpulency, final PoiAdapterListener listener){
+
+        PoisGetTask getRequest = new PoisGetTask(){
+            @Override
+            protected void onPostExecute(String jsonStr) {
+                super.onPostExecute(jsonStr);
+                //Perform the doInBackground method, passing in our url
+                ArrayList<Poi> result = new ArrayList<>();
+                try {
+                    if (jsonStr != null) {
+                        JSONObject jsonObj = new JSONObject(jsonStr);
+
+                        // Getting JSON Array node
+                        JSONArray contacts = jsonObj.getJSONArray("pois");
+
+                        result = BuildPoi(contacts, "", corpulency);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                listener.onPoiGetAll(result);
+            }
+        };
+
+        getRequest.execute(apiUrl);
+
+        /*
         //String to place our result in
         ArrayList<Poi> result = new ArrayList<>();
         //Instantiate new instance of our class
@@ -84,37 +116,38 @@ public class PoiAdapter {
             e.printStackTrace();
         }
 
-        return result;
+        return result;*/
     }
 
-    public ArrayList<Poi> GetCinemas(){
-        //String to place our result in
-        ArrayList<Poi> result = new ArrayList<>();
-        //Instantiate new instance of our class
-        PoisGetTask getRequest = new PoisGetTask();
-        //Perform the doInBackground method, passing in our url
-        try {
-            String jsonStr = getRequest.execute(apiUrl).get();
-            if (jsonStr != null) {
-                JSONObject jsonObj = new JSONObject(jsonStr);
+    public /*ArrayList<Poi>*/ void GetCinemasOuRestaurants(final String typePoi, final PoiAdapterListener listener){
 
-                // Getting JSON Array node
-                JSONArray contacts = jsonObj.getJSONArray("pois");
+        PoisGetTask getRequest = new PoisGetTask(){
+            @Override
+            protected void onPostExecute(String jsonStr) {
+                super.onPostExecute(jsonStr);
+                //Perform the doInBackground method, passing in our url
+                ArrayList<Poi> result = new ArrayList<>();
+                try {
+                    if (jsonStr != null) {
+                        JSONObject jsonObj = new JSONObject(jsonStr);
 
-                result = BuildPoi(contacts, "CINE", null);
+                        // Getting JSON Array node
+                        JSONArray contacts = jsonObj.getJSONArray("pois");
+
+                        result = BuildPoi(contacts, typePoi.equals("CINE") ? "CINE" : "REST", null);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                listener.onPoiGetCinemasOuRestaurants(result);
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        };
 
-        return result;
+        getRequest.execute(apiUrl);
     }
 
-    public ArrayList<Poi> GetRestaurants(){
+    public ArrayList<Poi> GetRestaurants(final PoiAdapterListener listener){
         //String to place our result in
         ArrayList<Poi> result = new ArrayList<>();
         //Instantiate new instance of our class

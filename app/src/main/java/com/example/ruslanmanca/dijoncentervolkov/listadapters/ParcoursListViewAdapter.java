@@ -20,7 +20,6 @@ import java.util.ArrayList;
  */
 
 public class ParcoursListViewAdapter extends ArrayAdapter<Parcours> implements View.OnClickListener{
-    private ArrayList<Parcours> dataSet;
     Context mContext;
 
     // View lookup cache
@@ -34,7 +33,6 @@ public class ParcoursListViewAdapter extends ArrayAdapter<Parcours> implements V
 
     public ParcoursListViewAdapter(ArrayList<Parcours> data, Context context) {
         super(context, R.layout.parcours_listview_item, data);
-        this.dataSet = data;
         this.mContext = context;
     }
 
@@ -78,12 +76,20 @@ public class ParcoursListViewAdapter extends ArrayAdapter<Parcours> implements V
 
         lastPosition = position;
 
-        PoiAdapter poiAdapter = new PoiAdapter("https://my-json-server.typicode.com/lpotherat/pois/pois/" );
-        Poi cinema = poiAdapter.GetById(dataModel.getIdCinema());
-        Poi restaurant = poiAdapter.GetById(dataModel.getIdRestaurant());
+        //PoiAdapter poiAdapter = new PoiAdapter("https://my-json-server.typicode.com/lpotherat/pois/pois/" );
+        /*Poi cinema = poiAdapter.GetById(dataModel.getIdCinema(), new PoiAdapter.PoiAdapterListener() {
+            @Override
+            public boolean onPoiGetById(Poi poi) {
 
-        viewHolder.cinema.setText(cinema.getName());
-        viewHolder.restaurant.setText(restaurant.getName());
+                return false;
+            }
+        });
+        Poi restaurant = poiAdapter.GetById(dataModel.getIdRestaurant());*/
+
+        /*viewHolder.cinema.setText(cinema.getName());
+        viewHolder.restaurant.setText(restaurant.getName());*/
+        viewHolder.cinema.setText(dataModel.getPoiCinema().getName());
+        viewHolder.restaurant.setText(dataModel.getPoiRestaurant().getName());
         viewHolder.dateRealisation.setText(dataModel.getDateRealisation());
         viewHolder.accompagnant.setText(dataModel.getAccompagnant());
         viewHolder.statut.setText(dataModel.getStatut().getLibelle());

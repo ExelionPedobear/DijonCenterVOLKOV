@@ -68,14 +68,49 @@ public class AjouterParcoursActivity extends AppCompatActivity {
         spStatuts.setAdapter(customStatutAdapter);
 
         PoiAdapter poiAdapter = new PoiAdapter("https://my-json-server.typicode.com/lpotherat/pois/db");
-        cinemas = poiAdapter.GetCinemas();
-        restaurants = poiAdapter.GetRestaurants();
 
-        customCinemaAdapter = new PoiSpinnerAdapter(cinemas, this);
-        spCinemas.setAdapter(customCinemaAdapter);
+        poiAdapter.GetCinemasOuRestaurants("CINE", new PoiAdapter.PoiAdapterListener() {
+            @Override
+            public boolean onPoiGetById(Poi poi) {
+                return true;
+            }
 
-        customRestaurantAdapter = new PoiSpinnerAdapter(restaurants, this);
-        spRestaurants.setAdapter(customRestaurantAdapter);
+            @Override
+            public boolean onPoiGetCinemasOuRestaurants(ArrayList<Poi> pois){
+                cinemas = pois;
+                customCinemaAdapter = new PoiSpinnerAdapter(cinemas, getApplicationContext());
+                spCinemas.setAdapter(customCinemaAdapter);
+                return true;
+            }
+
+            @Override
+            public boolean onPoiGetAll(ArrayList<Poi> pois) {
+                return true;
+            }
+        });
+
+        poiAdapter.GetCinemasOuRestaurants("REST", new PoiAdapter.PoiAdapterListener() {
+            @Override
+            public boolean onPoiGetById(Poi poi) {
+                return true;
+            }
+
+            @Override
+            public boolean onPoiGetCinemasOuRestaurants(ArrayList<Poi> pois){
+                restaurants = pois;
+                customRestaurantAdapter = new PoiSpinnerAdapter(restaurants, getApplicationContext());
+                spRestaurants.setAdapter(customRestaurantAdapter);
+                return true;
+            }
+
+            @Override
+            public boolean onPoiGetAll(ArrayList<Poi> pois) {
+                return true;
+            }
+        });
+
+        //cinemas = poiAdapter.GetCinemas();
+        //restaurants = poiAdapter.GetRestaurants();
 
         btnValider.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,6 +1,9 @@
 package com.example.ruslanmanca.dijoncentervolkov;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -40,13 +43,25 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogin;
     Person person;
     private static PoiListViewAdapter poiLvAdapter;
+    ArrayList<Poi> lstPois = new ArrayList<Poi>();
+    ArrayList<Poi> newPois = new ArrayList<Poi>();
 
     private final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 0;
+
+    public static final String AUTHORITY = "com.example.android.datasync.provider";
+    // An account type, in the form of a domain name
+    public static final String ACCOUNT_TYPE = "ruslan.com";
+    // The account name
+    public static final String ACCOUNT = "ruslantest";
+    // Instance fields
+    Account mAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAccount = CreateSyncAccount(this);
 
         txtLogin = (EditText) findViewById(R.id.txtLogin);
         btnLogin = (Button) findViewById(R.id.btnLogin);
@@ -103,44 +118,115 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final PoiAdapter poiAdapter = new PoiAdapter("https://my-json-server.typicode.com/lpotherat/pois/db");
-        final ArrayList<Poi> lstPois = poiAdapter.GetAll(null);
-        nbPois.setText(String.valueOf(lstPois.size()));
-        poiLvAdapter = new PoiListViewAdapter(lstPois, getApplicationContext());
 
-        pois.setAdapter(poiLvAdapter);
-        pois.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        poiAdapter.GetAll(null, new PoiAdapter.PoiAdapterListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onPoiGetById(Poi poi) {
+                return true;
+            }
 
-                Poi poi = lstPois.get(position);
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra("Poi", poi);
-                startActivity(intent);
+            @Override
+            public boolean onPoiGetCinemasOuRestaurants(ArrayList<Poi> pois){
+                return true;
+            }
+
+            @Override
+            public boolean onPoiGetAll(ArrayList<Poi> poisLst) {
+                lstPois = poisLst;
+                //final ArrayList<Poi> lstPois = poiAdapter.GetAll(null);
+                nbPois.setText(String.valueOf(lstPois.size()));
+                poiLvAdapter = new PoiListViewAdapter(lstPois, getApplicationContext());
+
+                pois.setAdapter(poiLvAdapter);
+                pois.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        Poi poi = lstPois.get(position);
+                        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                        intent.putExtra("Poi", poi);
+                        startActivity(intent);
+                    }
+                });
+                return true;
             }
         });
-
-        //ContentResolver cr = getContentResolver();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String login = txtLogin.getText().toString();
-                PersonProvider personProvider = new PersonProvider();
-                ContentResolver cr = getContentResolver();
-                Cursor cursor = cr.query(Uri.parse("content://ruslanauthority/ruslanlogin/" + login), null, null, null, null);
-                person = personProvider.getPerson(cursor);
-                Toast toast = Toast.makeText(getApplicationContext(), "Logged as : " + person.getLoginPerson(), Toast.LENGTH_LONG);
-                toast.show();
 
-                ArrayList<Poi> newPois = new ArrayList<Poi>(){};
+                if (!login.isEmpty()) {
+                    PersonProvider personProvider = new PersonProvider();
 
-                person.setCorpulence();
-                newPois = poiAdapter.GetAll(person.getCorpulence());
-                nbPois.setText(String.valueOf(newPois.size()));
-                poiLvAdapter.updateData(newPois);
-                poiLvAdapter.notifyDataSetChanged();
+                    try {
+                        ContentResolver cr = getContentResolver();
+                        Cursor cursor = cr.query(Uri.parse("content://ruslanauthority/ruslanlogin/" + login), null, null, null, null);
+                        person = personProvider.getPerson(cursor);
+                        Toast toast = Toast.makeText(getApplicationContext(), "Logged as : " + person.getLoginPerson(), Toast.LENGTH_LONG);
+                        toast.show();
+
+                        person.setCorpulence();
+
+
+                        poiAdapter.GetAll(person.getCorpulence(), new PoiAdapter.PoiAdapterListener() {
+                            @Override
+                            public boolean onPoiGetById(Poi poi) {
+                                return true;
+                            }
+
+                            @Override
+                            public boolean onPoiGetCinemasOuRestaurants(ArrayList<Poi> pois){
+                                return true;
+                            }
+
+                            @Override
+                            public boolean onPoiGetAll(ArrayList<Poi> pois) {
+                                newPois = pois;
+                                //newPois = poiAdapter.GetAll(person.getCorpulence());
+                                nbPois.setText(String.valueOf(newPois.size()));
+                                poiLvAdapter.updateData(newPois);
+                                poiLvAdapter.notifyDataSetChanged();
+                                return true;
+                            }
+                        });
+                    }
+                    catch (Exception ex){
+
+                    }
+                }
             }
         });
+    }
+
+    public static Account CreateSyncAccount(Context context) {
+        // Create the account type and default account
+        Account newAccount = new Account(
+                ACCOUNT, ACCOUNT_TYPE);
+        // Get an instance of the Android account manager
+        AccountManager accountManager =
+                (AccountManager) context.getSystemService(
+                        ACCOUNT_SERVICE);
+        /*
+         * Add the account and account type, no password or user data
+         * If successful, return the Account object, otherwise report an error.
+         */
+        if (accountManager.addAccountExplicitly(newAccount, null, null)) {
+            /*
+             * If you don't set android:syncable="true" in
+             * in your <provider> element in the manifest,
+             * then call context.setIsSyncable(account, AUTHORITY, 1)
+             * here.
+             */
+        } else {
+            /*
+             * The account exists or some other error occurred. Log this, report it,
+             * or handle it internally.
+             */
+        }
+
+        return newAccount;
     }
 
     @Override

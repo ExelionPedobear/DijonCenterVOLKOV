@@ -29,7 +29,7 @@ public class SmsListener extends BroadcastReceiver {
     private SharedPreferences preferences;
     final SmsManager sms = SmsManager.getDefault();
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, Intent intent) {
         if(intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")){
             Bundle bundle = intent.getExtras();           //---get the SMS message passed in---
             SmsMessage[] msgs = null;
@@ -43,11 +43,31 @@ public class SmsListener extends BroadcastReceiver {
                         msg_from = msgs[i].getOriginatingAddress();
                         String msgBody = msgs[i].getMessageBody();
                         PoiAdapter poiAdapter = new PoiAdapter("https://my-json-server.typicode.com/lpotherat/pois/pois/");
-                        final Poi poi = poiAdapter.GetById(msgBody);
+                        poiAdapter.GetById(msgBody, new PoiAdapter.PoiAdapterListener() {
+                            @Override
+                            public boolean onPoiGetById(Poi poi) {
+                                Intent intent2 = new Intent(context, DetailActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent2.putExtra("Poi", poi);
+                                context.startActivity(intent2);
+                                Toast.makeText(context, poi.getName() , Toast.LENGTH_LONG).show();
+                                return true;
+                            }
+
+                            @Override
+                            public boolean onPoiGetCinemasOuRestaurants(ArrayList<Poi> pois){
+                                return true;
+                            }
+
+                            @Override
+                            public boolean onPoiGetAll(ArrayList<Poi> pois) {
+                                return true;
+                            }
+                        });
+                        /*final Poi poi = poiAdapter.GetByIdSync(msgBody);
                         Intent intent2 = new Intent(context, DetailActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent2.putExtra("Poi", poi);
                         context.startActivity(intent2);
-                        Toast.makeText(context, poi.getName() , Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, poi.getName() , Toast.LENGTH_LONG).show();*/
                     }
                 }catch(Exception e){
 //                            Log.d("Exception caught",e.getMessage());

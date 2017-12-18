@@ -1,5 +1,7 @@
 package com.example.ruslanmanca.dijoncentervolkov.models.database;
 
+import com.example.ruslanmanca.dijoncentervolkov.models.Poi;
+
 /**
  * Created by RuslanManca on 20/09/2017.
  */
@@ -13,6 +15,8 @@ public class Parcours {
     String accompagnant;
     long idStatut;
     Statut statut;
+    Poi poiCinema;
+    Poi poiRestaurant;
 
     public Parcours(){}
 
@@ -99,5 +103,21 @@ public class Parcours {
 
     public void setStatut(Statut statut) {
         this.statut = statut;
+    }
+
+    public Poi getPoiCinema() {
+        return poiCinema;
+    }
+
+    public void setPoiCinema(Poi poiCinema) {
+        this.poiCinema = poiCinema;
+    }
+
+    public Poi getPoiRestaurant() {
+        return poiRestaurant;
+    }
+
+    public void setPoiRestaurant(Poi poiRestaurant) {
+        this.poiRestaurant = poiRestaurant;
     }
 }

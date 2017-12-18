@@ -11,6 +11,9 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="com.example.ruslanmanca.myhealthvolkov.READ_DATABASE"/>
     <uses-permission android:name="com.example.ruslanmanca.myhealthvolkov.WRITE_DATABASE"/>
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -48,7 +51,34 @@
             android:value="AIzaSyBsHn0_LC4EbyJQfXGqEFIq_eTs6ZqjpAE" />
 
         <activity android:name=".CarteActivity"></activity>
+        <service
+            android:name=".adapters.sync.AuthenticatorService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
 
+        <service
+            android:name=".services.SyncService"
+            android:exported="true"
+            android:process=":sync">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter"/>
+            </intent-filter>
+            <meta-data android:name="android.content.SyncAdapter"
+                android:resource="@xml/syncadapter" />
+        </service>
     </application>
+
+    <provider
+        android:name=".adapters.contentproviders.StubProvider"
+        android:authorities="com.example.android.datasync.provider"
+        android:exported="false"
+        android:syncable="true">
+
+    </provider>
 
 </manifest>

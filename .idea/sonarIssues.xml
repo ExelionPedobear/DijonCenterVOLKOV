@@ -73,6 +73,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/adapters/contentproviders/StubProvider.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/adapters/database/DatabaseAdapter.java">
           <value>
             <set />
@@ -84,6 +89,26 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/adapters/database/StatutAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/adapters/sync/Authenticator.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/adapters/sync/AuthenticatorService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/adapters/sync/AuthentificatorService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/adapters/sync/SyncAdapter.java">
           <value>
             <set />
           </value>
@@ -193,6 +218,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/example/ruslanmanca/dijoncentervolkov/services/SyncService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_ajouter_parcours.xml">
           <value>
             <set />
@@ -244,6 +274,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/xml/authenticator.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/xml/syncadapter.xml">
           <value>
             <set />
           </value>
