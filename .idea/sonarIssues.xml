@@ -28,6 +28,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
           <value>
             <set />
@@ -293,6 +298,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../MyHealthVOLKOV/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MyHealthVOLKOV/app/build/intermediates/manifests/full/debug/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../MyHealthVOLKOV/app/src/main/AndroidManifest.xml">
           <value>
             <set />
@@ -314,6 +329,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../MyHealthVOLKOV/app/src/main/java/com/example/ruslanmanca/myhealthvolkov/models/database/Person.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MyHealthVOLKOV/build.gradle">
           <value>
             <set />
           </value>

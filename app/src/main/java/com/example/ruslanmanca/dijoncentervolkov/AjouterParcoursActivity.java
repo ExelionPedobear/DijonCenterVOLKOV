@@ -1,5 +1,7 @@
 package com.example.ruslanmanca.dijoncentervolkov;
 
+import android.accounts.Account;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +28,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class AjouterParcoursActivity extends AppCompatActivity {
+    public static final String AUTHORITY = "com.example.android.datasync.provider";
+    public static final String ACCOUNT = "ruslan.com";
 
     ArrayList<Poi> cinemas;
     ArrayList<Poi> restaurants;
@@ -127,6 +131,8 @@ public class AjouterParcoursActivity extends AppCompatActivity {
                 parcours.setIdRestaurant(((Poi)spRestaurants.getSelectedItem()).getId());
                 parcours.setIdStatut(((Statut)spStatuts.getSelectedItem()).getId());
                 pa.insert(parcours);
+
+                ContentResolver.requestSync(new Account("ruslan", ACCOUNT), AUTHORITY, null);
 
                 Intent intent = new Intent(AjouterParcoursActivity.this, MainActivity.class);
                 startActivity(intent);
